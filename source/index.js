@@ -1,5 +1,5 @@
-"use strict";
-module.exports = function(items, iterator, taskgroupOptions, next){
+/* eslint no-var:0, object-shorthand:0 */
+module.exports = function each (items, iterator, taskgroupOptions, next) {
 	var TaskGroup = require('taskgroup').TaskGroup
 	iterator = iterator.bind(this)
 
@@ -7,16 +7,16 @@ module.exports = function(items, iterator, taskgroupOptions, next){
 	if ( taskgroupOptions == null )  taskgroupOptions = {}
 
 	// Default the name of the map
-	if ( !taskgroupOptions.name )  taskgroupOptions.name = 'each iterator group: '+Math.random()
+	if ( !taskgroupOptions.name )  taskgroupOptions.name = 'each iterator group: ' + Math.random()
 
 	// Define our tasks for the map
-	var tasks = TaskGroup.create(taskgroupOptions).done(function(err){
+	var tasks = TaskGroup.create(taskgroupOptions).done(function (err) {
 		return next(err) // don't do a direct forward, as we want to discard the result argument
 	})
 
 	// Create a task for each map item, and add them to the task group
 	var isArray = Array.isArray(items)
-	Object.keys(items).forEach(function(key, index){
+	Object.keys(items).forEach(function (key, index) {
 		// Prepare
 		var itemValue = items[key]
 		var args = [itemValue]
@@ -25,7 +25,8 @@ module.exports = function(items, iterator, taskgroupOptions, next){
 		if ( iterator.length === 3 ) {
 			if ( isArray ) {
 				args.push(index)
-			} else {
+			}
+			else {
 				args.push(key)
 			}
 		}
@@ -33,7 +34,7 @@ module.exports = function(items, iterator, taskgroupOptions, next){
 		// Create and add our task
 		tasks.addTask({
 			key: key,
-			name: "map iterator for: "+key,
+			name: 'map iterator for: ' + key,
 			method: iterator,
 			args: args
 		})

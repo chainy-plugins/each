@@ -1,9 +1,10 @@
 {
-  "title": "Each action for [ChainyJS](http://chainyjs.org)",
+  "title": "Each action for ChainyJS",
   "name": "chainy-plugin-each",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Chainy action that iterates through each item in the array with an asynchronous or synchronous iterator",
-  "homepage": "https://github.com/chainy-plugins/each",
+  "homepage": "https://github.com/chainyjs/each",
+  "license": "MIT",
   "keywords": [
     "chainy-action",
     "chainy-iterator",
@@ -13,37 +14,75 @@
     "chainy-addon",
     "chainy"
   ],
-  "license": {
-    "type": "MIT"
-  },
   "badges": {
-    "travis": true,
-    "npm": true,
-    "david": true,
-    "daviddev": true,
-    "gittip": "bevry",
-    "flattr": "344188/balupton-on-Flattr",
-    "paypal": "QB8GQPZAH84N6",
-    "bitcoin": "https://coinbase.com/checkouts/9ef59f5479eec1d97d63382c9ebcb93a",
-    "wishlist": "http://amzn.com/w/2F8TXKSNAFG4V"
+    "list": [
+      "travisci",
+      "npmversion",
+      "npmdownloads",
+      "daviddm",
+      "daviddmdev",
+      "---",
+      "slackin",
+      "patreon",
+      "gratipay",
+      "flattr",
+      "paypal",
+      "bitcoin",
+      "wishlist"
+    ],
+    "config": {
+      "patreonUsername": "bevry",
+      "gratipayUsername": "bevry",
+      "flattrUsername": "balupton",
+      "paypalURL": "https://bevry.me/paypal",
+      "bitcoinURL": "https://bevry.me/bitcoin",
+      "wishlistURL": "https://bevry.me/wishlist",
+      "slackinURL": "https://slack.bevry.me"
+    }
   },
-  "author": "2014+ Bevry Pty Ltd <us@bevry.me> (http://bevry.me)",
+  "author": "2014+ Bevry Pty Ltd <us@bevry.me> (https://bevry.me)",
   "maintainers": [
-    "Benjamin Lupton <b@lupton.cc> (https://github.com/balupton)"
+    "Benjamin Lupton <b@lupton.cc> (https://balupton.com)"
   ],
   "contributors": [],
   "bugs": {
-    "url": "https://github.com/chainy-plugins/each/issues"
+    "url": "https://github.com/chainyjs/each/issues"
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/chainy-plugins/each.git"
+    "url": "http://github.com/chainyjs/each.git"
   },
-  "engines": {
-    "node": ">=0.4"
+  "editions": [
+    {
+      "description": "Source + ES5 + Require",
+      "entry": "source/index.js",
+      "directory": "source",
+      "syntaxes": [
+        "javascript",
+        "es5",
+        "require"
+      ]
+    }
+  ],
+  "main": "source/index.js",
+  "browser": "source/index.js",
+  "scripts": {
+    "setup": "npm install",
+    "clean": "rm -Rf ./docs",
+    "compile": "echo 'no compile necessary'",
+    "meta": "npm run meta:projectz",
+    "meta:projectz": "projectz compile",
+    "prepare": "npm run test && npm run meta",
+    "release": "npm run prepare && npm run release:publish && npm run release:tag && npm run release:push",
+    "release:publish": "npm publish",
+    "release:tag": "git tag v$npm_package_version -a",
+    "release:push": "git push origin master && git push origin --tags",
+    "pretest": "npm run test:eslint",
+    "test:eslint": "eslint ./source",
+    "test": "node --harmony ./source/test.js"
   },
   "dependencies": {
-    "taskgroup": "~4.0.0"
+    "taskgroup": "5"
   },
   "peerDependencies": {
     "chainy-core": "1"
@@ -51,17 +90,10 @@
   "devDependencies": {
     "chainy-plugin-set": "*",
     "chainy-core": "1",
-    "joe": "~1.5.0",
-    "joe-reporter-console": "~1.2.1",
-    "chai": "~1.9.1",
-    "projectz": "~0.3.11"
-  },
-  "directories": {
-    "test": "test"
-  },
-  "scripts": {
-    "test": "node ./test/each-test.js"
-  },
-  "main": "./lib/each.js",
-  "browsers": true
+    "eslint": "^2.11.1",
+    "joe": "^1.8.0",
+    "joe-reporter-console": "^1.2.1",
+    "assert-helpers": "^4.4.0",
+    "projectz": "^1.1.5"
+  }
 }
